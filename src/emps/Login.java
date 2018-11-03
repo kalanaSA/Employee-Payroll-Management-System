@@ -1,5 +1,7 @@
 package emps;
 
+import java.awt.Toolkit;
+import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +18,12 @@ public class Login extends javax.swing.JFrame {
     
     public Login() {
         initComponents();
+        
+        //for center the frame
+        Toolkit toolkit=getToolkit();
+        Dimension size=toolkit.getScreenSize();
+        setLocation(size.width/2-getWidth()/2,size.height/2-getHeight()/2);
+                
         conn=DBconnect.connect();
         currentDate();
     }
@@ -158,7 +166,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String sql="SELECT username,password,division FROM users WHERE username=? and password=? and division=?";
+        String sql="SELECT id,username,password,division FROM users WHERE username=? and password=? and division=?";
         
         try{
             int count=0;
@@ -170,9 +178,12 @@ public class Login extends javax.swing.JFrame {
             
             while(rs.next()){
                 count=count+1;
+                
+                int id=rs.getInt(1);
+                Emp.empId=id;
             }
+            
             String access=jComboBox1.getSelectedItem().toString();
-            System.out.println(access);
             
             if(access=="Admin"){
                 if(count==1){
