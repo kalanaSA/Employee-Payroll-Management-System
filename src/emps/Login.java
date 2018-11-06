@@ -180,7 +180,9 @@ public class Login extends javax.swing.JFrame {
                 count=count+1;
                 
                 int id=rs.getInt(1);
-                Emp.empId=id;
+                Emp.empid=id;
+                String username=rs.getString("username");
+                Emp.empname=username;
             }
             
             String access=jComboBox1.getSelectedItem().toString();

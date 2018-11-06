@@ -1,5 +1,6 @@
 package emps;
 
 public class Emp {
-    public static int empId;
+    public static int empid;
+    public static String empname;
 }

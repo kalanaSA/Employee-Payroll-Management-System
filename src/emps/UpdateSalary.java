@@ -49,6 +49,11 @@ public class UpdateSalary extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Employee ID :");
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTextField1KeyReleased(evt);
@@ -323,8 +328,6 @@ public class UpdateSalary extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     
-
-
         int x = JOptionPane.showConfirmDialog(null, "Are you sure update this salary?");
         if(x==0){
             
@@ -333,7 +336,7 @@ public class UpdateSalary extends javax.swing.JFrame {
         if(jRadioButton1.isSelected()==true){
         int getPercentage = Integer.parseInt(jTextField8.getText()); //convert to integer
         int calcPercentage = salary /100 * getPercentage + salary;
-        String xP = String.valueOf(calcPercentage); //convert string into integer
+        String xP = String.valueOf(calcPercentage); //convert integer into string
         jTextField6.setText(xP);
         }
         
@@ -383,6 +386,10 @@ public class UpdateSalary extends javax.swing.JFrame {
         jTextField8.setEditable(true);
         jTextField9.setText("");
     }//GEN-LAST:event_jRadioButton1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
