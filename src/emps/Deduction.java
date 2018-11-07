@@ -67,7 +67,7 @@ public class Deduction extends javax.swing.JFrame {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Employee ID :");
 
@@ -510,33 +510,29 @@ public class Deduction extends javax.swing.JFrame {
         
         if(jRadioButton1.isSelected()==true){
             int percentage = Integer.parseInt(jTextField12.getText());
+ 
             
-            //calculate the total hours of overtime
             int totalPercentageDeduction = salary/100*percentage;
             String x = String.valueOf(totalPercentageDeduction);
-            int sal = salary - totalPercentageDeduction;
+            int salaryAfterDeduction = salary - totalPercentageDeduction;
             jLabel14.setText(x);
-            jLabel16.setText(String.valueOf(sal));
+            jLabel16.setText(String.valueOf(salaryAfterDeduction));
+        
+        }   
             
         if(jRadioButton2.isSelected()==true){
-                int deduction = Integer.parseInt(jTextField13.getText());
-                
-                //calculate the total hours of overtime
-                int totalAmountDeduction= salary - deduction;
-                String s = String.valueOf(totalAmountDeduction);
-                jLabel16.setText(s);
-                jLabel14.setText(String.valueOf(deduction));
-                
+            int amount = Integer.parseInt(jTextField13.getText());
+  
+            int salaryAfterDeduction= salary - amount;
+            String y = String.valueOf(salaryAfterDeduction);
+            jLabel14.setText(String.valueOf(amount));
+            jLabel16.setText(y);
  
             
-            }
+         }
  
-    }
-        
-          
- 
-        
-        
+    
+   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {

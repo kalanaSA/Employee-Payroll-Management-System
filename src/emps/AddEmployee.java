@@ -70,7 +70,7 @@ public class AddEmployee extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Employee ID");
@@ -469,8 +469,8 @@ public class AddEmployee extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e);
         }
         
-        //automatically add username & password for users table 
-        try{
+        //automatically add username & password for users table -----------------------------------------------
+        /* try{
             
             String sq="SELECT * FROM staffinformation WHERE (id) NOT IN (select id from users)";
             
@@ -502,7 +502,7 @@ public class AddEmployee extends javax.swing.JFrame {
             }catch(Exception e){
             
             }
-        }
+        }*/
         
         
         }  

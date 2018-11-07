@@ -4,12 +4,15 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Projects/Employee%20Payroll%20Management%20System/src/emps/AddEmployee.java</file>
+            <file>file:/D:/Projects/Employee%20Payroll%20Management%20System/src/emps/Audit.java</file>
             <file>file:/D:/Projects/Employee%20Payroll%20Management%20System/src/emps/UpdateSalary.java</file>
             <file>file:/D:/Projects/Employee%20Payroll%20Management%20System/src/emps/DBconnect.java</file>
             <file>file:/D:/Projects/Employee%20Payroll%20Management%20System/src/emps/Login.java</file>
             <file>file:/D:/Projects/Employee%20Payroll%20Management%20System/src/emps/Emp.java</file>
+            <file>file:/D:/Projects/Employee%20Payroll%20Management%20System/src/emps/SearchEmpSalary.java</file>
             <file>file:/D:/Projects/Employee%20Payroll%20Management%20System/src/emps/MainMenu.java</file>
             <file>file:/D:/Projects/Employee%20Payroll%20Management%20System/src/emps/Allowance.java</file>
+            <file>file:/D:/Projects/Employee%20Payroll%20Management%20System/src/emps/Deduction.java</file>
         </group>
     </open-files>
 </project-private>

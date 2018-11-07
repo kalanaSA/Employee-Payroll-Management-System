@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import java.util.Calendar;
 import java.util.Date;
@@ -61,6 +63,7 @@ public class Login extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
 
@@ -136,6 +139,16 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setBounds(0, 0, 790, 520);
 
         jMenu1.setText("File");
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/emps/images/Exit.png"))); // NOI18N
+        jMenuItem1.setText("Exit");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Date");
@@ -193,6 +206,26 @@ public class Login extends javax.swing.JFrame {
                     MainMenu m=new MainMenu();
                     m.setVisible(true);
                     this.dispose();
+                    
+                    //for audit login date & time
+                    Date currentDate = GregorianCalendar.getInstance().getTime();
+                    DateFormat df = DateFormat.getDateInstance();
+                    String dateString = df.format(currentDate);
+                    
+                    Date d = new Date();
+                    SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                    String timeString = sdf.format(d);
+                    
+                    String value1 = timeString;
+                    String value2 = dateString;
+                    
+                    int value3 = Emp.empid;
+                    
+                    String reg ="INSERT INTO audit(empId,date,status) VALUES('"+value3+"','"+value1+" / "+value2+"','Logged In')";
+                    pst=conn.prepareStatement(reg);
+                    pst.execute();
+                    this.dispose();
+                    
                 }else{
                     JOptionPane.showMessageDialog(null, "Incorrect username & password you Entered!");
                     
@@ -221,6 +254,10 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+       System.exit(0);  
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
   
     public static void main(String args[]) {
@@ -268,6 +305,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
