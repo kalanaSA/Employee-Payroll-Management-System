@@ -290,7 +290,7 @@ public class SearchEmpSalary extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyReleased
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+    
         String value0 = jTextField1.getText();
         String value1 = jTextField2.getText();
         String value2 = jTextField3.getText();

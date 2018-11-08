@@ -3,6 +3,8 @@ package emps;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -175,9 +177,19 @@ public class MainMenu extends javax.swing.JFrame {
         jMenu2.add(jMenuItem1);
 
         jMenuItem2.setText("Employee total allowance report");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem2);
 
         jMenuItem3.setText("Employee total deduction report");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu2.add(jMenuItem3);
 
         jMenuBar1.add(jMenu2);
@@ -255,7 +267,96 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
+
+	    JFileChooser dialog = new JFileChooser();
+            dialog.setSelectedFile(new File("Employees Report.pdf"));
+            int dialogResult = dialog.showSaveDialog(null);
+            if (dialogResult==JFileChooser.APPROVE_OPTION){
+            String filePath = dialog.getSelectedFile().getPath();
+           
+        try {
+
+            String sql ="select * from staffinformation";
+ 
+            pst=conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+
+            
+           Document myDocument = new Document();
+           PdfWriter myWriter = PdfWriter.getInstance(myDocument, new FileOutputStream(filePath ));
+           PdfPTable table = new PdfPTable(13);
+           myDocument.open();
+           
+   
+           float[] columnWidths = new float[] {3,8,7,5,5,9,8,9,6,6,6,8,8};
+           table.setWidths(columnWidths);
+
+           table.setWidthPercentage(100); //set table width to 100%
+           
+          
+          myDocument.add(new Paragraph("Employees List",FontFactory.getFont(FontFactory.TIMES_BOLD,20,Font.BOLD )));
+          myDocument.add(new Paragraph(new Date().toString()));
+          myDocument.add(new Paragraph("-------------------------------------------------------------------------------------------"));
+          table.addCell(new PdfPCell(new Paragraph("ID",FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("First Name",FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Surname",FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Date of Birth",FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Telephone",FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Address",FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Gender",FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Department",FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Designation",FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Date Hired",FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Salary",FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Job Title",FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Status",FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.BOLD))));
+          
+          while(rs.next())
+            {
+                
+           
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(1),FontFactory.getFont(FontFactory.TIMES_ROMAN,8,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(2),FontFactory.getFont(FontFactory.TIMES_ROMAN,8,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(3),FontFactory.getFont(FontFactory.TIMES_ROMAN,8,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(4),FontFactory.getFont(FontFactory.TIMES_ROMAN,8,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(5),FontFactory.getFont(FontFactory.TIMES_ROMAN,8,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(8),FontFactory.getFont(FontFactory.TIMES_ROMAN,8,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(10),FontFactory.getFont(FontFactory.TIMES_ROMAN,8,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(11),FontFactory.getFont(FontFactory.TIMES_ROMAN,8,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(12),FontFactory.getFont(FontFactory.TIMES_ROMAN,8,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(13),FontFactory.getFont(FontFactory.TIMES_ROMAN,8,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(14),FontFactory.getFont(FontFactory.TIMES_ROMAN,8,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(15),FontFactory.getFont(FontFactory.TIMES_ROMAN,8,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(16),FontFactory.getFont(FontFactory.TIMES_ROMAN,8,Font.PLAIN))));
+    
+          
+            }
+           
+           myDocument.add(table);
+           myDocument.add(new Paragraph("--------------------------------------------------------------------------------------------"));
+           myDocument.close();  
+           JOptionPane.showMessageDialog(null,"Report was successfully generated");
+            
+     }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+         
+         
+     }
+     finally {
+            
+            try{
+                rs.close();
+                pst.close();
+                
+            }
+            catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+         
+            }
+     }
+   }
+            
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -298,6 +399,179 @@ public class MainMenu extends javax.swing.JFrame {
         AddEmployee ae = new AddEmployee();
         ae.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        
+         JFileChooser dialog = new JFileChooser();
+            dialog.setSelectedFile(new File("Employee Allowance Report.pdf"));
+            int dialogResult = dialog.showSaveDialog(null);
+            if (dialogResult==JFileChooser.APPROVE_OPTION){
+            String filePath = dialog.getSelectedFile().getPath();
+           
+        try {
+
+            String sql ="select * from allowance";
+            
+ 
+            pst=conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            
+           
+           Document myDocument = new Document();
+           PdfWriter myWriter = PdfWriter.getInstance(myDocument, new FileOutputStream(filePath ));
+           PdfPTable table = new PdfPTable(11);
+           myDocument.open();
+           
+   
+           float[] columnWidths = new float[] { 3,7,7,5,5,9,6,5,8,8,8};
+           table.setWidths(columnWidths);
+
+           table.setWidthPercentage(100); //set table width to 100%
+           
+          
+           myDocument.add(new Paragraph("Employees Allowance List",FontFactory.getFont(FontFactory.TIMES_BOLD,20,Font.BOLD )));
+           myDocument.add(new Paragraph(new Date().toString()));
+           myDocument.add(new Paragraph("-------------------------------------------------------------------------------------------"));
+          table.addCell(new PdfPCell(new Paragraph("ID",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Emp ID",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("First Name",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Surname",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Basic Salary",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Overtime",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Medical",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Bonus",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Other",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Rate",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Allowance",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          
+          
+          while(rs.next())
+            {
+                
+           
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(1),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(2),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(3),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(4),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(5),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(6),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(7),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(8),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(9),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(10),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(11),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+          
+            }
+           
+           myDocument.add(table);
+           myDocument.add(new Paragraph("--------------------------------------------------------------------------------------------"));
+           myDocument.close();  
+           JOptionPane.showMessageDialog(null,"Report was successfully generated");
+            
+     }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+         
+         
+     }
+     finally {
+            
+            try{
+                rs.close();
+                pst.close();
+                
+            }
+            catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+         
+            }
+     }
+   }
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+
+        JFileChooser dialog = new JFileChooser();
+            dialog.setSelectedFile(new File("Employee Deduction Report.pdf"));
+            int dialogResult = dialog.showSaveDialog(null);
+            if (dialogResult==JFileChooser.APPROVE_OPTION){
+            String filePath = dialog.getSelectedFile().getPath();
+           
+        try {
+
+            String sql ="select * from deduction";
+            
+ 
+            pst=conn.prepareStatement(sql);
+            rs=pst.executeQuery();
+            
+           
+           Document myDocument = new Document();
+           PdfWriter myWriter = PdfWriter.getInstance(myDocument, new FileOutputStream(filePath ));
+           PdfPTable table = new PdfPTable(8);
+           myDocument.open();
+           
+   
+           float[] columnWidths = new float[] { 3,7,7,5,5,9,6,5};
+           table.setWidths(columnWidths);
+
+           table.setWidthPercentage(100); //set table width to 100%
+           
+          
+           myDocument.add(new Paragraph("Employees Deduction List",FontFactory.getFont(FontFactory.TIMES_BOLD,20,Font.BOLD )));
+           myDocument.add(new Paragraph(new Date().toString()));
+           myDocument.add(new Paragraph("-------------------------------------------------------------------------------------------"));
+          table.addCell(new PdfPCell(new Paragraph("ID",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("First Name",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Surname",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Salary",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Deduction Amount",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Deduction Reason",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Employee ID",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+          table.addCell(new PdfPCell(new Paragraph("Created By",FontFactory.getFont(FontFactory.TIMES_ROMAN,10,Font.BOLD))));
+     
+          
+          
+          while(rs.next())
+            {
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(1),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(2),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(3),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(4),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(5),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(6),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(7),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+           table.addCell(new PdfPCell(new Paragraph(rs.getString(8),FontFactory.getFont(FontFactory.TIMES_ROMAN,9,Font.PLAIN))));
+          
+          
+            }
+           
+           myDocument.add(table);
+           myDocument.add(new Paragraph("--------------------------------------------------------------------------------------------"));
+           myDocument.close();  
+           JOptionPane.showMessageDialog(null,"Report was successfully generated");
+            
+     }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+         
+         
+     }
+     finally {
+            
+            try{
+                rs.close();
+                pst.close();
+                
+            }
+            catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+         
+            }
+     }
+   }
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
   
     public static void main(String args[]) {

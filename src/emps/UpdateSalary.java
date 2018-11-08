@@ -259,7 +259,7 @@ public class UpdateSalary extends javax.swing.JFrame {
                 .addGap(53, 53, 53))
         );
 
-        setSize(new java.awt.Dimension(719, 542));
+        setSize(new java.awt.Dimension(676, 542));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
